@@ -12,17 +12,38 @@
 
     <!-- Tab Navigation -->
     <div class="tabs">
-        <button class="tab-button active" data-tab="manage-subscribers">Manage Subscribers</button>
-        <button class="tab-button" data-tab="subscriber-list">Subscriber List</button>
+        <button class="tab-button active" data-tab="subscriber-list">Subscriber List</button>
+        <button class="tab-button" data-tab="manage-subscribers">Add Subscribers</button>
         <button class="tab-button" data-tab="simulate-session">Simulate Session</button>
         <button class="tab-button" data-tab="generate-invoice">Generate Invoice</button>
     </div>
 
     <!-- Tab Content -->
     <div class="tab-content">
-        <!-- Manage Subscribers -->
-        <div id="manage-subscribers" class="tab-pane active">
-            <h2>Manage Subscribers</h2>
+        <!-- Subscriber List -->
+        <div id="subscriber-list" class="tab-pane active">
+            <h2>Subscriber List</h2>
+            <table id="subscriber-table">
+                <thead>
+                <tr>
+                    <th>Surname</th>
+                    <th>Forename</th>
+                    <th>IMSI</th>
+                    <th>Terminal Type</th>
+                    <th>Subscription Type</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Subscriber rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Add new Subscribers -->
+        <div id="manage-subscribers" class="tab-pane">
+            <h2>Add Subscribers</h2>
             <form id="subscriber-form">
                 <div class="form-row">
                     <div class="form-group">
@@ -34,7 +55,13 @@
                         <input type="text" id="surname" name="surname" required>
                     </div>
                     <div class="form-group">
-                        <label for="imsi">IMSI:</label>
+                        <div class="tool">
+                            <label for="imsi">IMSI:</label>
+                            <span class="info-container">
+                                <span class="info-icon">i</span>
+                                <span class="tooltip">Valid for Germany (MCC 262) and T-Mobile (MNC 42).</span>
+                            </span>
+                        </div>
                         <input type="text" id="imsi" name="imsi" required>
                     </div>
                 </div>
@@ -62,26 +89,6 @@
 
                 <button type="submit">Add Subscriber</button>
             </form>
-        </div>
-
-        <!-- Subscriber List -->
-        <div id="subscriber-list" class="tab-pane">
-            <h2>Subscriber List</h2>
-            <table id="subscriber-table">
-                <thead>
-                <tr>
-                    <th>Forename</th>
-                    <th>Surname</th>
-                    <th>IMSI</th>
-                    <th>Terminal Type</th>
-                    <th>Subscription Type</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Subscriber rows will be dynamically added here -->
-                </tbody>
-            </table>
         </div>
 
         <!-- Simulate Session -->
@@ -116,6 +123,47 @@
             </form>
             <div id="session-result">
                 <!-- Session results will be displayed here -->
+                <div class="session-details">
+                    <h3>Session Details</h3>
+                    <div class="session-field">
+                        <span class="session-label">Subscriber:</span>
+                        <span class="session-value" id="session-subscriber-name">-</span>
+                    </div>
+                    <div class="session-field">
+                        <span class="session-label">Service Type:</span>
+                        <span class="session-value" id="session-service-type">-</span>
+                    </div>
+                    <div class="session-field">
+                        <span class="session-label">Session Duration:</span>
+                        <span class="session-value" id="session-duration-display">-</span>
+                    </div>
+                    <!-- Voice Call Details -->
+                    <div id="voice-call-details" class="hidden">
+                        <div class="session-field">
+                            <span class="session-label">Total Charges:</span>
+                            <span class="session-value" id="voice-total-charges">-</span>
+                        </div>
+                    </div>
+                    <!-- Data Session Details -->
+                    <div id="data-session-details" class="hidden">
+                        <div class="session-field">
+                            <span class="session-label">Signal Strength:</span>
+                            <span class="session-value" id="data-signal-strength">-</span>
+                        </div>
+                        <div class="session-field">
+                            <span class="session-label">Data Rate:</span>
+                            <span class="session-value" id="data-rate">-</span>
+                        </div>
+                        <div class="session-field">
+                            <span class="session-label">Used Data Volume:</span>
+                            <span class="session-value" id="data-volume">-</span>
+                        </div>
+                        <div class="session-field">
+                            <span class="session-label">Total Charges:</span>
+                            <span class="session-value" id="data-total-charges">-</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -131,7 +179,21 @@
                 <button type="submit">Generate Invoice</button>
             </form>
             <div id="invoice-result">
-                <!-- Invoice details will be displayed here -->
+                <div class="invoice-details">
+                    <h3>Invoice Details</h3>
+                    <div class="invoice-field">
+                        <span class="invoice-label">Subscriber:</span>
+                        <span class="invoice-value" id="invoice-subscriber-name">-</span>
+                    </div>
+                    <div class="invoice-field">
+                        <span class="invoice-label">Total Data Used:</span>
+                        <span class="invoice-value" id="invoice-data-used">-</span>
+                    </div>
+                    <div class="invoice-field">
+                        <span class="invoice-label">Total Charges:</span>
+                        <span class="invoice-value" id="invoice-total-charges">-</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

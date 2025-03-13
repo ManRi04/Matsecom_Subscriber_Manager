@@ -41,6 +41,11 @@ h2 {
     color: #2c3e50;
 }
 
+h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
 /* Tab Navigation */
 .tabs {
     display: flex;
@@ -153,4 +158,133 @@ th {
     padding: 10px;
     background-color: #ecf0f1;
     border-radius: 5px;
+}
+
+/* Invoice Result Styles */
+#invoice-result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-details {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+}
+
+.invoice-details h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.invoice-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-label {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.invoice-value {
+    color: #333;
+}
+
+/* Session Result Styles */
+#session-result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.session-details {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+}
+
+.session-details h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.session-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.session-label {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.session-value {
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+.info-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.tool {
+    display: flex;
+    gap: 8px;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.info-container {
+    position: relative;
+    display: flex;
+    padding-top: 7px;
+}
+
+.info-container:hover .tooltip {
+    display: block;
 }

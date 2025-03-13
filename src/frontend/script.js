@@ -94,12 +94,12 @@ function validateImsi(input) {
 
     // Überprüfen, ob die Länge zwischen 5 und 15 Zeichen liegt
     if (!imsiPattern.test(value)) {
-        return { valid: false, message: "IMSI muss zwischen 5 und 15 Ziffern lang sein und darf keine Buchstaben enthalten!" };
+        return { valid: false, message: "IMSI must be between 5 and 15 digits long and must not contain any letters!" };
     }
 
     // Überprüfen, ob die IMSI mit MCC 262 (Deutschland) und MNC 42 (T-Mobile) beginnt
     if (!value.startsWith("26242")) {
-        return { valid: false, message: "Ungültiger MCC/MNC. Gültig für Deutschland (MCC 262) und T-Mobile (MNC 42)." };
+        return { valid: false, message: "Invalid MCC/MNC." };
     }
 
     return { valid: true }; // Gültig, wenn alle Prüfungen bestehen
@@ -122,27 +122,13 @@ function validateImsi(input) {
                     // Add subscriber to the table
                     const newRow = subscriberTable.insertRow();
                     newRow.innerHTML = `
-                        <td>${forename}</td>
                         <td>${surname}</td>
+                        <td>${forename}</td>
                         <td>${imsi}</td>
                         <td>${terminalType}</td>
                         <td>${subscriptionType}</td>
                         <td><button onclick="deleteSubscriber(this)">Delete</button></td>
                       `;
-
-                    const data = {
-                        name: "Max",
-                        age: 25
-                    };
-
-                    fetch("http://localhost:8080/api/user", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ name: "Max", age: 25 })
-                    })
-                        .then(response => response.text())
-                        .then(data => console.log(data))
-                        .catch(error => console.error(error));
                     // Clear the form
                     subscriberForm.reset();
                 }
