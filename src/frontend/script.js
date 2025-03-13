@@ -130,9 +130,12 @@ function validateImsi(input) {
                         <td><button onclick="deleteSubscriber(this)">Delete</button></td>
                       `;
 
-                    const data = {
-                        benutzername: "janedoe",
-                        email: "janedoe@example.com",
+                    const user = {
+                        forename:"Manuel",
+                        surname:"Riess",
+                        imsi: "test",
+                        terminalType: "test",
+                        subscriptionType:"type",
 
                     };
 
@@ -141,7 +144,7 @@ function validateImsi(input) {
                         headers: {
                             'Content-Type': 'application/json' // Der Server erwartet JSON-Daten
                         },
-                        body: JSON.stringify(data) // Die Daten in JSON umwandeln
+                        body: JSON.stringify(user) // Die Daten in JSON umwandeln
                     })
                         .then(response => {
                             // Überprüfen, ob der Content-Type der Antwort JSON ist

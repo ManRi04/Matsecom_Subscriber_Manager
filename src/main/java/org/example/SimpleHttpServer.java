@@ -2,6 +2,8 @@ package org.example;
 
 
 
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.*;
 
@@ -45,6 +47,17 @@ public class SimpleHttpServer {
 
                 // Für Debugging: Gebe den empfangenen JSON-Inhalt im Log aus
                 System.out.println("Empfangene JSON-Daten: " + json);
+
+                JsonNode jsonNode = objectMapper.readTree(json);
+                String forename = jsonNode.get("forename").asText();
+                String surname = jsonNode.get("surname").asText();
+                String imsi = jsonNode.get("imsi").asText();
+                String terminalType = jsonNode.get("terminalType").asText();
+                String subscriptionType = jsonNode.get("subscriptionType").asText();
+
+                User u = new User(34, forename, surname, imsi, terminalType, subscriptionType);
+                u.insertIntoDB();
+
 
                 // Antwort senden (gibt die empfangenen Daten zurück)
                 String response = "Empfangen: " + json;
