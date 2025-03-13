@@ -15,6 +15,21 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.error-border {
+    border: 2px solid red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none;
+    padding-top: 0.15rem;
+}
+
+.show-error {
+    display: block;
+}
+
 h1 {
     text-align: center;
     margin-top: 0;
