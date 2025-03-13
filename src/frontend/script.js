@@ -39,6 +39,23 @@ subscriberForm.addEventListener('submit', (e) => {
     <td>${subscriptionType}</td>
     <td><button onclick="deleteSubscriber(this)">Delete</button></td>
   `;
+    const data = {
+        forename: forename,
+        surname: surname,
+        imsi: imsi,
+        terminalType:terminalType,
+        subscriptionType: subscriptionType,
+    };
+    fetch("http://localhost:63342/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(result => console.log("Erfolgreich gesendet:", result))
+        .catch(error => console.error("Fehler:", error));
 
     // Clear the form
     subscriberForm.reset();

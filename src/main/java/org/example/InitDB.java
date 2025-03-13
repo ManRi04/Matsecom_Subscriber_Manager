@@ -8,7 +8,11 @@ import java.sql.Statement;
 public class InitDB {
     public static final String URL = "jdbc:sqlite:src/main/java/org/example/database.db";
     public void init() {
-        createProductsTable();
+        createUserTable();
+        createSubscriptionTable();
+        createTerminalTable();
+        createRanTechnologyTable();
+        createServiceTypeTable();
 
     }
     public void createUserTable(){
@@ -55,6 +59,33 @@ public class InitDB {
                 + ");";
         executeSQL(sql, "products");
     }
+
+    public void createServiceTypeTable() {
+        var sql = "CREATE TABLE IF NOT EXISTS service_type ("
+                + " id INTEGER PRIMARY KEY,"
+                + " name TEXT NOT NULL,"
+                + " voice_call TEXT NOT NULL,"
+                + " browsing_and_social_networking TEXT NOT NULL,"
+                + " app_download TEXT NOT NULL,"
+                + " adaptive_hd_video TEXT NOT NULL);";
+
+        executeSQL(sql, "service_type");
+    }
+
+    public void createRanTechnologyTable() {
+        var sql = "CREATE TABLE IF NOT EXISTS ran_technology ("
+                + " id INTEGER PRIMARY KEY,"
+                + " name TEXT NOT NULL,"
+                + " maximum_throughput REAL NOT NULL,"
+                + " achievable_throughput_per_signal_quality_good REAL NOT NULL,"
+                + " achievable_throughput_per_signal_quality_medium REAL NOT NULL,"
+                + " achievable_throughput_per_signal_quality_low REAL NOT NULL,"
+                + " achievable_throughput_per_signal_quality_na REAL NOT NULL,"
+                + " voice_call_support BOOLEAN NOT NULL);";
+
+        executeSQL(sql, "ran_technology");
+    }
+
 
     private static void executeSQL(String sql, String tableName) {
         try (Connection conn = DriverManager.getConnection(URL);

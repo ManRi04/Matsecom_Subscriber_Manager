@@ -22,27 +22,6 @@ public class User {
     }
 
 
-    public void createTable(){
-
-        var url = "jdbc:sqlite:src/main/java/org/example/database.db";
-
-        var sql = "CREATE TABLE IF NOT EXISTS users ("
-                + "	id INTEGER PRIMARY KEY,"
-                + "	prename text NOT NULL,"
-                + "	surname text NOT NULL," +
-                "IMSI text NOT NULL," +
-                "terminal_type text NOT NULL," +
-                "subscription_type text NOT NULL);";
-
-        try (var conn = DriverManager.getConnection(url);
-             var stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
 
 
 
@@ -72,8 +51,7 @@ public class User {
     }
 
     public static void main(String[] args) {
-        User u = new User(3,"Max","Mustermann","Test","Test","Test");
-        u.createTable();
+        User u = new User(5,"Maxime","Mustermann","Test","Test","Test");
 
         u.insertIntoDB();
     }
