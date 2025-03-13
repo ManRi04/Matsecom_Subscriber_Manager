@@ -169,16 +169,126 @@ function validateImsi(input) {
                     subscriberForm.reset();
                 }
                 else if(formId === "session-form") {
+                    // Data Definitions
+                    const terminals = {
+                        "PhairPhone": ["2G", "3G"],
+                        "Pear aphone 4s": ["2G", "3G"],
+                        "Samsung s42plus": ["2G", "3G", "4G"]
+                    };
+
+                    const subscriptions = {
+                        "GreenMobil S": { basicFee: 8, freeMinutes: 0, pricePerExtraMinute: 0.08, dataVolume: 500 },
+                        "GreenMobil M": { basicFee: 22, freeMinutes: 100, pricePerExtraMinute: 0.06, dataVolume: 2000 },
+                        "GreenMobil L": { basicFee: 42, freeMinutes: 150, pricePerExtraMinute: 0.04, dataVolume: 5000 }
+                    };
+
+                    const ranTechnologies = {
+                        "2G": { maxThroughput: null, achievableThroughput: { good: null, medium: null, low: null, na: null }, voiceCallSupport: true },
+                        "3G": { maxThroughput: 20, achievableThroughput: { good: 0.5, medium: 0.25, low: 0.1, na: 0 }, voiceCallSupport: false },
+                        "4G": { maxThroughput: 300, achievableThroughput: { good: 0.5, medium: 0.25, low: 0.1, na: 0 }, voiceCallSupport: false }
+                    };
+
+                    const serviceTypes = {
+                        "Voice call": { ranTechnologies: ["2G"], requiredDataRate: null },
+                        "Browsing and social networking": { ranTechnologies: ["3G", "4G"], requiredDataRate: 2 },
+                        "App download": { ranTechnologies: ["3G", "4G"], requiredDataRate: 10 },
+                        "Adaptive HD video": { ranTechnologies: ["3G", "4G"], requiredDataRate: 75 }
+                    };
+
+                    // Simulate Session Form
+                    const sessionForm = document.getElementById('session-form');
+                    const sessionResult = document.getElementById('session-result');
+
                     const subscriber = document.getElementById('subscriber-select').value;
                     const serviceType = document.getElementById('service-type').value;
-                    const duration = document.getElementById('session-duration').value;
+                    const duration = parseInt(document.getElementById('session-duration').value);
 
-                    // Display session result
-                    sessionResult.innerHTML = `
-                        <p>Session simulated for ${subscriber}.</p>
-                        <p>Service Type: ${serviceType}</p>
-                        <p>Duration: ${duration} minutes</p>
-                      `;
+                    // Get subscriber details (example data, replace with actual data from backend)
+                    const subscriberDetails = {
+                        name: "Elias Plum",
+                        terminal: "Samsung s42plus", // Example terminal
+                        subscription: "GreenMobil M" // Example subscription
+                    };
+
+                    // Get terminal and subscription details
+                    const terminal = subscriberDetails.terminal;
+                    const subscription = subscriptions[subscriberDetails.subscription];
+
+                    // Get service type details
+                    const service = serviceTypes[serviceType];
+
+                    // Simulate session
+                    if (serviceType === "Voice call") {
+                        simulateVoiceCall(subscriberDetails, duration, subscription);
+                    } else {
+                        simulateDataSession(subscriberDetails, duration, service, terminal, subscription);
+                    }
+
+                    // Simulate Voice Call
+                    function simulateVoiceCall(subscriber, duration, subscription) {
+                        const freeMinutes = subscription.freeMinutes;
+                        const extraMinutes = Math.max(0, duration - freeMinutes);
+                        const totalCharges = (extraMinutes * subscription.pricePerExtraMinute).toFixed(2);
+
+                        // Display session details
+                        document.getElementById('session-subscriber-name').textContent = subscriber.name;
+                        document.getElementById('session-service-type').textContent = "Voice Call";
+                        document.getElementById('session-duration-display').textContent = `${duration} minutes`;
+                        document.getElementById('voice-total-charges').textContent = `€${totalCharges}`;
+
+                        // Show voice call details and hide data session details
+                        document.getElementById('voice-call-details').classList.remove('hidden');
+                        document.getElementById('data-session-details').classList.add('hidden');
+                        document.getElementById('session-result').classList.remove('hidden');
+                    }
+
+                    // Simulate Data Session
+                    function simulateDataSession(subscriber, duration, service, terminal, subscription) {
+                        const signalStrength = ["good", "medium", "low", "na"][Math.floor(Math.random() * 4)];
+                        const availableRANTechnologies = terminals[terminal].filter(tech => service.ranTechnologies.includes(tech));
+                        let ranTechnology;
+                        if(serviceType === "Adaptive HD video" && terminal === "Samsung s42plus") {
+                            ranTechnology = "4G"
+                        }
+                        else {
+                            ranTechnology = availableRANTechnologies[Math.floor(Math.random() * availableRANTechnologies.length)];
+                        }
+                        const maxThroughput = ranTechnologies[ranTechnology].maxThroughput;
+                        const achievableThroughput = maxThroughput * ranTechnologies[ranTechnology].achievableThroughput[signalStrength];
+                        const requiredDataRate = service.requiredDataRate;
+
+                        // Check if achievable data rate is sufficient
+                        if (achievableThroughput < requiredDataRate) {
+                            // Display error message
+                            sessionResult.innerHTML = `
+                              <div class="error-message-2">
+                                <p style="color: red;">Error: No session can be displayed.</p>
+                                <p style="color: red;">Reason: The achievable data rate (${achievableThroughput.toFixed(2)} Mbit/s) is lower than the required data rate (${requiredDataRate} Mbit/s).</p>
+                              </div>
+                            `;
+                            document.getElementById('session-result').classList.remove('hidden');
+                            return;
+                        }
+
+                        // Calculate used data volume and charges
+                        const usedDataVolume = ((achievableThroughput * duration * 60) / 8).toFixed(2); // Convert Mbit/s to MB
+                        const totalCharges = (usedDataVolume > subscription.dataVolume ? (usedDataVolume - subscription.dataVolume) * 0.01 : 0).toFixed(2); // €0.01 per MB over limit
+
+                        // Display session details
+                        document.getElementById('session-subscriber-name').textContent = subscriber.name;
+                        document.getElementById('session-service-type').textContent = serviceType;
+                        document.getElementById('session-duration-display').textContent = `${duration} minutes`;
+                        document.getElementById('ran-technology').textContent = ranTechnology;
+                        document.getElementById('data-signal-strength').textContent = signalStrength;
+                        document.getElementById('data-rate').textContent = `${achievableThroughput.toFixed(2)} Mbit/s`;
+                        document.getElementById('data-volume').textContent = `${usedDataVolume} MB`;
+                        document.getElementById('data-total-charges').textContent = `€${totalCharges}`;
+
+                        // Show data session details and hide voice call details
+                        document.getElementById('data-session-details').classList.remove('hidden');
+                        document.getElementById('voice-call-details').classList.add('hidden');
+                        document.getElementById('session-result').classList.remove('hidden');
+                    }
                 }
                 else if(formId === "invoice-form") {
                     const subscriber = document.getElementById('invoice-subscriber-select').value;

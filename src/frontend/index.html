@@ -1,204 +1,208 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscriber Management System</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="container">
-    <h1>Subscriber Management System</h1>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Subscriber Management System</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+    <div class="container">
+        <h1>Subscriber Management System</h1>
 
-    <!-- Tab Navigation -->
-    <div class="tabs">
-        <button class="tab-button active" data-tab="subscriber-list">Subscriber List</button>
-        <button class="tab-button" data-tab="manage-subscribers">Add Subscribers</button>
-        <button class="tab-button" data-tab="simulate-session">Simulate Session</button>
-        <button class="tab-button" data-tab="generate-invoice">Generate Invoice</button>
-    </div>
-
-    <!-- Tab Content -->
-    <div class="tab-content">
-        <!-- Subscriber List -->
-        <div id="subscriber-list" class="tab-pane active">
-            <h2>Subscriber List</h2>
-            <table id="subscriber-table">
-                <thead>
-                <tr>
-                    <th>Surname</th>
-                    <th>Forename</th>
-                    <th>IMSI</th>
-                    <th>Terminal Type</th>
-                    <th>Subscription Type</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Subscriber rows will be dynamically added here -->
-                </tbody>
-            </table>
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="subscriber-list">Subscriber List</button>
+            <button class="tab-button" data-tab="manage-subscribers">Add Subscribers</button>
+            <button class="tab-button" data-tab="simulate-session">Simulate Session</button>
+            <button class="tab-button" data-tab="generate-invoice">Generate Invoice</button>
         </div>
 
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Subscriber List -->
+            <div id="subscriber-list" class="tab-pane active">
+                <h2>Subscriber List</h2>
+                <table id="subscriber-table">
+                    <thead>
+                    <tr>
+                        <th>Surname</th>
+                        <th>Forename</th>
+                        <th>IMSI</th>
+                        <th>Terminal Type</th>
+                        <th>Subscription Type</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Subscriber rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Add new Subscribers -->
-        <div id="manage-subscribers" class="tab-pane">
-            <h2>Add Subscribers</h2>
-            <form id="subscriber-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="forename">Forename:</label>
-                        <input type="text" id="forename" name="forename" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="surname">Surname:</label>
-                        <input type="text" id="surname" name="surname" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="tool">
-                            <label for="imsi">IMSI:</label>
-                            <span class="info-container">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip">Valid for Germany (MCC 262) and T-Mobile (MNC 42).</span>
-                            </span>
+
+            <!-- Add new Subscribers -->
+            <div id="manage-subscribers" class="tab-pane">
+                <h2>Add Subscribers</h2>
+                <form id="subscriber-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="forename">Forename:</label>
+                            <input type="text" id="forename" name="forename" required>
                         </div>
-                        <input type="text" id="imsi" name="imsi" required>
+                        <div class="form-group">
+                            <label for="surname">Surname:</label>
+                            <input type="text" id="surname" name="surname" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="tool">
+                                <label for="imsi">IMSI:</label>
+                                <span class="info-container">
+                                    <span class="info-icon">i</span>
+                                    <span class="tooltip">Valid for Germany (MCC 262) and T-Mobile (MNC 42).</span>
+                                </span>
+                            </div>
+                            <input type="text" id="imsi" name="imsi" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-row">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="terminal-type">Terminal Type:</label>
+                            <select id="terminal-type" name="terminal-type" required>
+                                <option value="" selected disabled>Please select</option>
+                                <option value="PhairPhone">PhairPhone (2G, 3G)</option>
+                                <option value="Pear aphone 4s">Pear aphone 4s (2G, 3G)</option>
+                                <option value="Samsung S42plus">Samsung S42plus (2G, 3G, 4G)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subscription-type">Subscription Type:</label>
+                            <select id="subscription-type" name="subscription-type" required>
+                                <option value="" selected disabled>Please select</option>
+                                <option value="GreenMobil S">GreenMobil S</option>
+                                <option value="GreenMobil M">GreenMobil M</option>
+                                <option value="GreenMobil L">GreenMobil L</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit">Add Subscriber</button>
+                </form>
+            </div>
+
+            <!-- Simulate Session -->
+            <div id="simulate-session" class="tab-pane">
+                <h2>Simulate Session</h2>
+                <form id="session-form">
                     <div class="form-group">
-                        <label for="terminal-type">Terminal Type:</label>
-                        <select id="terminal-type" name="terminal-type" required>
-                            <option value="" selected disabled>Please select</option>
-                            <option value="PhairPhone">PhairPhone (2G, 3G)</option>
-                            <option value="Pear aphone 4s">Pear aphone 4s (2G, 3G)</option>
-                            <option value="Samsung S42plus">Samsung S42plus (2G, 3G, 4G)</option>
+                        <label for="subscriber-select">Subscriber:</label>
+                        <select id="subscriber-select" name="subscriber-select">
+                            <!-- Subscriber options will be dynamically added here -->
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="subscription-type">Subscription Type:</label>
-                        <select id="subscription-type" name="subscription-type" required>
-                            <option value="" selected disabled>Please select</option>
-                            <option value="GreenMobil S">GreenMobil S</option>
-                            <option value="GreenMobil M">GreenMobil M</option>
-                            <option value="GreenMobil L">GreenMobil L</option>
-                        </select>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-type">Service Type:</label>
+                            <select id="service-type" name="service-type" required>
+                                <option value="" selected disabled>Please select</option>
+                                <option value="Voice call">Voice call (2G)</option>
+                                <option value="Browsing and social networking">Browsing and social networking (3G, 4G)</option>
+                                <option value="App download">App download (3G, 4G)</option>
+                                <option value="Adaptive HD video">Adaptive HD video (3G, 4G)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="session-duration">Duration (minutes):</label>
+                            <input type="number" id="session-duration" name="session-duration" required>
+                        </div>
+                    </div>
+
+                    <button type="submit">Simulate Session</button>
+                </form>
+                <div id="session-result">
+                    <!-- Session results will be displayed here -->
+                    <div class="session-details">
+                        <h3>Session Details</h3>
+                        <div class="session-field">
+                            <span class="session-label">Subscriber:</span>
+                            <span class="session-value" id="session-subscriber-name">-</span>
+                        </div>
+                        <div class="session-field">
+                            <span class="session-label">Service Type:</span>
+                            <span class="session-value" id="session-service-type">-</span>
+                        </div>
+                        <div class="session-field">
+                            <span class="session-label">Session Duration:</span>
+                            <span class="session-value" id="session-duration-display">-</span>
+                        </div>
+                        <!-- Voice Call Details -->
+                        <div id="voice-call-details" class="hidden">
+                            <div class="session-field">
+                                <span class="session-label">Total Charges:</span>
+                                <span class="session-value" id="voice-total-charges">-</span>
+                            </div>
+                        </div>
+                        <!-- Data Session Details -->
+                        <div id="data-session-details" class="hidden">
+                            <div class="session-field">
+                                <span class="session-label">RAN technology:</span>
+                                <span class="session-value" id="ran-technology">-</span>
+                            </div>
+                            <div class="session-field">
+                                <span class="session-label">Signal Strength:</span>
+                                <span class="session-value" id="data-signal-strength">-</span>
+                            </div>
+                            <div class="session-field">
+                                <span class="session-label">Data Rate:</span>
+                                <span class="session-value" id="data-rate">-</span>
+                            </div>
+                            <div class="session-field">
+                                <span class="session-label">Used Data Volume:</span>
+                                <span class="session-value" id="data-volume">-</span>
+                            </div>
+                            <div class="session-field">
+                                <span class="session-label">Total Charges:</span>
+                                <span class="session-value" id="data-total-charges">-</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <button type="submit">Add Subscriber</button>
-            </form>
-        </div>
-
-        <!-- Simulate Session -->
-        <div id="simulate-session" class="tab-pane">
-            <h2>Simulate Session</h2>
-            <form id="session-form">
-                <div class="form-group">
-                    <label for="subscriber-select">Subscriber:</label>
-                    <select id="subscriber-select" name="subscriber-select" required>
+            <!-- Generate Invoice -->
+            <div id="generate-invoice" class="tab-pane">
+                <h2>Generate Invoice</h2>
+                <form id="invoice-form">
+                    <label for="invoice-subscriber-select">Subscriber:</label>
+                    <select id="invoice-subscriber-select" name="invoice-subscriber-select" required>
                         <!-- Subscriber options will be dynamically added here -->
                     </select>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="service-type">Service Type:</label>
-                        <select id="service-type" name="service-type" required>
-                            <option value="" selected disabled>Please select</option>
-                            <option value="VoiceCall">Voice call (2G)</option>
-                            <option value="Browsing">Browsing and social networking (3G, 4G)</option>
-                            <option value="AppDownload">App download (3G, 4G)</option>
-                            <option value="AdaptiveVideo">Adaptive HD video (3G, 4G)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="session-duration">Duration (minutes):</label>
-                        <input type="number" id="session-duration" name="session-duration" required>
-                    </div>
-                </div>
-
-                <button type="submit">Simulate Session</button>
-            </form>
-            <div id="session-result">
-                <!-- Session results will be displayed here -->
-                <div class="session-details">
-                    <h3>Session Details</h3>
-                    <div class="session-field">
-                        <span class="session-label">Subscriber:</span>
-                        <span class="session-value" id="session-subscriber-name">-</span>
-                    </div>
-                    <div class="session-field">
-                        <span class="session-label">Service Type:</span>
-                        <span class="session-value" id="session-service-type">-</span>
-                    </div>
-                    <div class="session-field">
-                        <span class="session-label">Session Duration:</span>
-                        <span class="session-value" id="session-duration-display">-</span>
-                    </div>
-                    <!-- Voice Call Details -->
-                    <div id="voice-call-details" class="hidden">
-                        <div class="session-field">
-                            <span class="session-label">Total Charges:</span>
-                            <span class="session-value" id="voice-total-charges">-</span>
+                    <button type="submit">Generate Invoice</button>
+                </form>
+                <div id="invoice-result">
+                    <div class="invoice-details">
+                        <h3>Invoice Details</h3>
+                        <div class="invoice-field">
+                            <span class="invoice-label">Subscriber:</span>
+                            <span class="invoice-value" id="invoice-subscriber-name">-</span>
                         </div>
-                    </div>
-                    <!-- Data Session Details -->
-                    <div id="data-session-details" class="hidden">
-                        <div class="session-field">
-                            <span class="session-label">Signal Strength:</span>
-                            <span class="session-value" id="data-signal-strength">-</span>
+                        <div class="invoice-field">
+                            <span class="invoice-label">Total Data Used:</span>
+                            <span class="invoice-value" id="invoice-data-used">-</span>
                         </div>
-                        <div class="session-field">
-                            <span class="session-label">Data Rate:</span>
-                            <span class="session-value" id="data-rate">-</span>
+                        <div class="invoice-field">
+                            <span class="invoice-label">Total Charges:</span>
+                            <span class="invoice-value" id="invoice-total-charges">-</span>
                         </div>
-                        <div class="session-field">
-                            <span class="session-label">Used Data Volume:</span>
-                            <span class="session-value" id="data-volume">-</span>
-                        </div>
-                        <div class="session-field">
-                            <span class="session-label">Total Charges:</span>
-                            <span class="session-value" id="data-total-charges">-</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Generate Invoice -->
-        <div id="generate-invoice" class="tab-pane">
-            <h2>Generate Invoice</h2>
-            <form id="invoice-form">
-                <label for="invoice-subscriber-select">Subscriber:</label>
-                <select id="invoice-subscriber-select" name="invoice-subscriber-select" required>
-                    <!-- Subscriber options will be dynamically added here -->
-                </select>
-
-                <button type="submit">Generate Invoice</button>
-            </form>
-            <div id="invoice-result">
-                <div class="invoice-details">
-                    <h3>Invoice Details</h3>
-                    <div class="invoice-field">
-                        <span class="invoice-label">Subscriber:</span>
-                        <span class="invoice-value" id="invoice-subscriber-name">-</span>
-                    </div>
-                    <div class="invoice-field">
-                        <span class="invoice-label">Total Data Used:</span>
-                        <span class="invoice-value" id="invoice-data-used">-</span>
-                    </div>
-                    <div class="invoice-field">
-                        <span class="invoice-label">Total Charges:</span>
-                        <span class="invoice-value" id="invoice-total-charges">-</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="./script.js"></script>
-</body>
-</html>
+    <script src="./script.js"></script>
+    </body>
+    </html>
