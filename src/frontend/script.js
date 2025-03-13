@@ -129,7 +129,40 @@ function validateImsi(input) {
                         <td>${subscriptionType}</td>
                         <td><button onclick="deleteSubscriber(this)">Delete</button></td>
                       `;
-                    // Clear the form
+
+                    const data = {
+                        benutzername: "janedoe",
+                        email: "janedoe@example.com",
+
+                    };
+
+                    fetch("http://localhost:8080/api/user", {
+                        method: 'POST', // POST-Methode
+                        headers: {
+                            'Content-Type': 'application/json' // Der Server erwartet JSON-Daten
+                        },
+                        body: JSON.stringify(data) // Die Daten in JSON umwandeln
+                    })
+                        .then(response => {
+                            // Überprüfen, ob der Content-Type der Antwort JSON ist
+                            const contentType = response.headers.get("Content-Type");
+
+                            if (contentType && contentType.includes("application/json")) {
+                                return response.json(); // Wenn JSON erwartet wird, die Antwort als JSON behandeln
+                            } else {
+                                return response.text(); // Andernfalls als Text behandeln
+                            }
+                        })
+                        .then(responseData => {
+                            console.log("Antwort vom Server:", responseData);
+                            // Falls es JSON war, kann man hier mit der Antwort weiterarbeiten
+                            // Beispiel: const jsonResponse = responseData; // Wenn es JSON war
+                        })
+                        .catch(error => {
+                            console.error("Fehler:", error); // Fehlerbehandlung
+                        });
+
+
                     subscriberForm.reset();
                 }
                 else if(formId === "session-form") {
