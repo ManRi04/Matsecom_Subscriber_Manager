@@ -11,8 +11,6 @@ import java.sql.*;
 import java.util.stream.Collectors;
 
 public class SimpleHttpServer {
-    private static final String DB_URL = "jdbc:sqlite:database.db";
-
     public static void main(String[] args) throws IOException {
         // HTTP-Server starten auf Port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
@@ -36,21 +34,20 @@ public class SimpleHttpServer {
                 return; // Stoppe hier, keine weitere Verarbeitung notwendig
             }
 
-
             if ("POST".equals(exchange.getRequestMethod())) {
                 // JSON aus dem Request-Body lesen
                 InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
                 String json = new BufferedReader(isr).lines().collect(Collectors.joining());
 
-                // JSON in User-Objekt umwandeln
+                // Optional: JSON in User-Objekt umwandeln (falls du das noch später brauchst)
                 ObjectMapper objectMapper = new ObjectMapper();
-                User user = objectMapper.readValue(json, User.class);
+                // User user = objectMapper.readValue(json, User.class);
 
-                // User in SQLite speichern
-                //saveUserToDatabase(user);
+                // Für Debugging: Gebe den empfangenen JSON-Inhalt im Log aus
+                System.out.println("Empfangene JSON-Daten: " + json);
 
-                // Antwort senden
-                String response = "Empfangen: " + "user.name" + ", Alter: " + "user.age";
+                // Antwort senden (gibt die empfangenen Daten zurück)
+                String response = "Empfangen: " + json;
                 exchange.sendResponseHeaders(200, response.length());
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
