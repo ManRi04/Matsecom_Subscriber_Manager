@@ -31,6 +31,8 @@
                         <th>IMSI</th>
                         <th>Terminal Type</th>
                         <th>Subscription Type</th>
+                        <th>Total Data Used</th>
+                        <th>Total Charges</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -73,7 +75,7 @@
                                 <option value="" selected disabled>Please select</option>
                                 <option value="PhairPhone">PhairPhone (2G, 3G)</option>
                                 <option value="Pear aphone 4s">Pear aphone 4s (2G, 3G)</option>
-                                <option value="Samsung S42plus">Samsung S42plus (2G, 3G, 4G)</option>
+                                <option value="Samsung s42plus">Samsung S42plus (2G, 3G, 4G)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -119,7 +121,7 @@
                         </div>
                     </div>
 
-                    <button type="submit">Simulate Session</button>
+                    <button type="submit" id="session-submit-button">Simulate Session</button>
                 </form>
                 <div id="session-result">
                     <!-- Session results will be displayed here -->
@@ -180,7 +182,7 @@
                         <!-- Subscriber options will be dynamically added here -->
                     </select>
 
-                    <button type="submit">Generate Invoice</button>
+                    <button type="submit" id="invoice-submit-button">Generate Invoice</button>
                 </form>
                 <div id="invoice-result">
                     <div class="invoice-details">

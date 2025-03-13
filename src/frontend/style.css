@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -287,4 +287,16 @@ th {
 
 .info-container:hover .tooltip {
     display: block;
+}
+
+#subscriber-table th,
+#subscriber-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+#subscriber-table th {
+    background-color: #3498db;
+    color: white;
 }
