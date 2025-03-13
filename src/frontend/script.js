@@ -129,6 +129,20 @@ function validateImsi(input) {
                         <td>${subscriptionType}</td>
                         <td><button onclick="deleteSubscriber(this)">Delete</button></td>
                       `;
+
+                    const data = {
+                        name: "Max",
+                        age: 25
+                    };
+
+                    fetch("http://localhost:8080/api/user", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: "Max", age: 25 })
+                    })
+                        .then(response => response.text())
+                        .then(data => console.log(data))
+                        .catch(error => console.error(error));
                     // Clear the form
                     subscriberForm.reset();
                 }
