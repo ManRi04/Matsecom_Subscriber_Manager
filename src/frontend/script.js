@@ -170,8 +170,8 @@ function resetForm(formId, buttonId, newButtonText) {
                         subscriptionType,
                         totalDataUsed: 0, // Initialize total data used
                         totalCharges: basicFee, // Initialize total charges
-                        freeMinutes: subscription.freeMinutes,
-                        freeDataVolume: subscription.dataVolume,
+                        freeMinutes: subscriptions[subscriptionType].freeMinutes,
+                        freeDataVolume: subscriptions[subscriptionType].dataVolume,
                     };
 
                     // Add subscriber to the array and save to localStorage
