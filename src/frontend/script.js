@@ -355,6 +355,7 @@ function updateSubscriberTable() {
           <td>${subscriber.subscriptionType}</td>
           <td>${subscriber.totalDataUsed} MB</td>
           <td>€${subscriber.totalCharges.toFixed(2)}</td>
+          <td>${subscriber.freeMinutes}</td>
           <td><button onclick="deleteSubscriber(${index})">Delete</button></td>
         `;
     });
