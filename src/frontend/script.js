@@ -224,6 +224,9 @@ function resetForm(formId, buttonId, newButtonText) {
                         subscriber.freeMinutes = freeMinutes;
                         subscriber.totalCharges += parseFloat(totalCharges);
 
+                        saveSubscribers(); // Update localStorage
+                        sortSubscribers();
+
                         // Display session details
                         document.getElementById('session-error-message').classList.add('hidden');
 
